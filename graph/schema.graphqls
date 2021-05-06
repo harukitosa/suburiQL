@@ -14,8 +14,14 @@ type User {
   name: String!
 }
 
+type Template {
+  name: String!
+  query: Template!
+}
+
 type Query {
   todos: [Todo!]!
+  template: Template!
 }
 
 input NewTodo {

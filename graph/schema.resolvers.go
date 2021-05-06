@@ -5,22 +5,26 @@ package graph
 
 import (
 	"context"
-	"fmt"
 	"suburiQL/graph/generated"
 	"suburiQL/graph/model"
 )
 
+var todos []*model.Todo
+
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	todo := model.Todo{ID: "1", Text: "hoge", Done: false}
+	todos = append(todos, &todo)
+	return &todo, nil
 }
 
 func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	todo := model.Todo{ID: "1", Text: "totototodo"}
-	todo2 := model.Todo{ID: "2", Text: "hogehogehogheo"}
-	var t []*model.Todo
-	t = append(t, &todo)
-	t = append(t, &todo2)
-	return t, nil
+	return todos, nil
+}
+
+func (r *queryResolver) Template(ctx context.Context) (*model.Template, error) {
+	temp := model.Template{Name: "hoge", Query: nil}
+	temp2 := model.Template{Name: "fuga", Query: &temp}
+	return &temp2, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
